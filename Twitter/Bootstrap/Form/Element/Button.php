@@ -29,6 +29,7 @@ class Twitter_Bootstrap_Form_Element_Button extends Twitter_Bootstrap_Form_Eleme
      * @var string
      */
     private $_icon;
+    private $_iconAlign;
 
     public function __construct($spec, $options = null)
     {
@@ -37,6 +38,7 @@ class Twitter_Bootstrap_Form_Element_Button extends Twitter_Bootstrap_Form_Eleme
             $options['escape'] = false;
 
             $this->_icon = 'icon-' . $options['icon'];
+            if(isset($options['iconAlign'])) $this->_iconAlign = $options['iconAlign'];
 
             if (isset($options['whiteIcon']) && true === $options['whiteIcon']) {
                 $this->_icon .= ' icon-white';
@@ -65,6 +67,10 @@ class Twitter_Bootstrap_Form_Element_Button extends Twitter_Bootstrap_Form_Eleme
      */
     public function getLabel()
     {
-        return $this->_renderIcon() . PHP_EOL .parent::getLabel();
+        if($this->_iconAlign == 'right') {
+            return parent::getLabel() . PHP_EOL . $this->_renderIcon();
+        } else {
+            return $this->_renderIcon() . PHP_EOL .parent::getLabel();
+        }
     }
 }
